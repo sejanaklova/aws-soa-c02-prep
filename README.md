@@ -1,2 +1,2 @@
-# aws-sysops-associate
-Repo from https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate modded and changed for practice.
+# aws-sysops-associate exam prep capsule
+Repo cloned from https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate, modded with relavant updates, changed according to personal preferances & abridged with application oriented concepts.
