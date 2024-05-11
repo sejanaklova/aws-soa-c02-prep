@@ -1,4 +1,5 @@
-
+# More info on how custom resources work here:
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html#how-custom-resources-work
 Description:  S3 Bucket Using a custom Resource
 Resources:
   animalpics:

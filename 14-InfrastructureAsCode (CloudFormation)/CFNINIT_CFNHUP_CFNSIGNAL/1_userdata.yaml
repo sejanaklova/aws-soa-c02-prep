@@ -1,12 +1,14 @@
+# Userdata bootstarp script modified for DNF pkg manager for AL2023
 Parameters:
   LatestAmiId:
     Description: "AMI for EC2"
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
-    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64'
   Message:
     Description: "Message for HTML page"
-    Default: "Cats are the best"
+    Default: "We're using software package management tool dnf."
     Type: "String"
+
 Resources:
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -34,16 +36,16 @@ Resources:
         - !Ref InstanceSecurityGroup
       Tags:
         - Key: Name
-          Value: A4L-UserData Test
+          Value: UserData
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
-          yum -y update
-          yum -y upgrade
+          dnf -y update
+          dnf -y upgrade
           # simulate some other processes here
-          sleep 300
+          sleep 5
           # Continue
-          yum install -y httpd
+          dnf install -y httpd
           systemctl enable httpd
           systemctl start httpd
           echo "<html><head><title>Amazing test page</title></head><body><h1><center>${Message}</center></h1></body></html>" > /var/www/html/index.html

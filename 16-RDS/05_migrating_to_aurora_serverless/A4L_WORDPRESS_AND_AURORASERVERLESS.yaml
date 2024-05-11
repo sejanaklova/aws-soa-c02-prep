@@ -654,3 +654,8 @@ Outputs:
   dbhost:
     Description: "RDS Endpoint Address"
     Value: !GetAtt DBCluster.Endpoint.Address
+
+
+# TO IMPROVE: Implement the userdata script via cfn-init & cfn-hup so that
+# when the cfn stack is updated with a RDS Endpoint Address, the new EC2 public IP
+# is automatically updated in the wordpress site url if restiored from an earlier snapshop

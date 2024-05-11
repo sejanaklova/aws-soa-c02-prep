@@ -2,11 +2,12 @@ Parameters:
   LatestAmiId:
     Description: "AMI for EC2"
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
-    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64'
   Message:
     Description: "Message for HTML page"
-    Default: "Cats are the best"
+    Default: "We've to use the good ole' yum for this one."
     Type: "String"
+
 Resources:
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -27,10 +28,17 @@ Resources:
     Type: 'AWS::S3::Bucket'
   Instance:
     Type: 'AWS::EC2::Instance'
+    # CreationPolicy section used in conjunction w/ cfn-signal to notify CFN when bootstrap finishes
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT4M
+    # Added the Metadata section to pass the 'AWS::CloudFormation::Init' metadata key
+    # cfn-init helper script later uses the config. directives passed here 
     Metadata:
       'AWS::CloudFormation::Init':
         config:
           packages:
+            # packages key does not support dnf in the config. directives, yet.
             yum:
               httpd: []
           files:
@@ -39,7 +47,7 @@ Resources:
                 <html><head><title>Amazing test page</title></head><body><h1><center>${Message}</center></h1></body></html>
           commands:
             simulatebootstrap:
-              command: "sleep 300"
+              command: "sleep 60"
           services:
             sysvinit:
               httpd:
@@ -47,9 +55,6 @@ Resources:
                 ensureRunning: "true"
                 files:
                   - "/var/www/html/index.html"
-    CreationPolicy:
-      ResourceSignal:
-        Timeout: PT15M
     Properties:
       InstanceType: "t2.micro"
       ImageId: !Ref "LatestAmiId"
@@ -57,9 +62,10 @@ Resources:
         - !Ref InstanceSecurityGroup
       Tags:
         - Key: Name
-          Value: A4L-UserData Test
+          Value: UserData with cfn helper scripts
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
           /opt/aws/bin/cfn-init -v --stack ${AWS::StackId} --resource Instance --region ${AWS::Region}
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackId} --resource Instance --region ${AWS::Region}
+        # UserData reduced to just calling cfn-init and cfn-signal helper scripts

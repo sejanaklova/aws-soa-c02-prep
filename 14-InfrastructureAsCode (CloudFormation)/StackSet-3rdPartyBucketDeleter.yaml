@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  This CloudFormation template:
+  - activates the public third-party extension AwsCommunity::S3::DeleteBucketContents.
+  - creates the role assumed by CloudFormation during CRUDL operations to mutate resources
+    on behalf of the user.
+  - makes it all available for use in other templates across accounts if deployed in a StackSet.
+
+# Extension::S3::BucketDeleter
+
+Resources:
+  S3BucketDeleter:
+    Type: AWS::CloudFormation::TypeActivation
+    Properties:
+      ExecutionRoleArn: !GetAtt S3DeletionRole.Arn
+      PublicTypeArn: "arn:aws:cloudformation:us-east-1::type/resource/c830e97710da0c9954d80ba8df021e5439e7134b/AwsCommunity-S3-DeleteBucketContents"
+      # TypeName: "AwsCommunity::S3::DeleteBucketContents"
+      # Type: "RESOURCE"
+      TypeNameAlias: "Extension::S3::BucketDeleter"
+      VersionBump: "MAJOR"
+
+  S3DeletionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join
+                  - '-'
+                  - - "s3-deletion-role"
+                    - !Ref AWS::AccountId
+      MaxSessionDuration: 8400
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: resources.cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: s3-CRUD-actions-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                - "s3:DeleteObject"
+                - "s3:GetBucketTagging"
+                - "s3:ListBucket"
+                - "s3:ListBucketVersions"
+                - "s3:PutBucketTagging"
+                - "cloudformation:ListExports"
+                Resource: "*"
