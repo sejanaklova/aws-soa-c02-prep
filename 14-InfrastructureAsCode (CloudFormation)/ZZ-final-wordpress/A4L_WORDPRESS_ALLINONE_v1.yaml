@@ -593,3 +593,6 @@ Resources:
             }
           }
         }
+
+
+# TO IMPROVE: Implement the userdata script via cfn-init & cfn-hup

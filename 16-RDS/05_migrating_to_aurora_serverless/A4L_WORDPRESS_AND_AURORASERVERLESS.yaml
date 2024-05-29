@@ -97,66 +97,66 @@ Resources:
       SubnetId: !Ref SubnetWEBA
       RouteTableId:
         Ref: RouteTableWeb
-  RouteTableAssociationWebB:
-    Type: 'AWS::EC2::SubnetRouteTableAssociation'
-    Properties:
-      SubnetId: !Ref SubnetWEBB
-      RouteTableId:
-        Ref: RouteTableWeb
-  RouteTableAssociationWebC:
-    Type: 'AWS::EC2::SubnetRouteTableAssociation'
-    Properties:
-      SubnetId: !Ref SubnetWEBC
-      RouteTableId:
-        Ref: RouteTableWeb
-  SubnetReservedA:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      CidrBlock: 10.16.0.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '00::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-reserved-A
-  SubnetReservedB:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      CidrBlock: 10.16.64.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '04::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-reserved-B
-  SubnetReservedC:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 2, !GetAZs '' ]
-      CidrBlock: 10.16.128.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '08::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-reserved-C
+  # RouteTableAssociationWebB:
+  #   Type: 'AWS::EC2::SubnetRouteTableAssociation'
+  #   Properties:
+  #     SubnetId: !Ref SubnetWEBB
+  #     RouteTableId:
+  #       Ref: RouteTableWeb
+  # RouteTableAssociationWebC:
+  #   Type: 'AWS::EC2::SubnetRouteTableAssociation'
+  #   Properties:
+  #     SubnetId: !Ref SubnetWEBC
+  #     RouteTableId:
+  #       Ref: RouteTableWeb
+  # SubnetReservedA:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 0, !GetAZs '' ]
+  #     CidrBlock: 10.16.0.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '00::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-reserved-A
+  # SubnetReservedB:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 1, !GetAZs '' ]
+  #     CidrBlock: 10.16.64.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '04::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-reserved-B
+  # SubnetReservedC:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 2, !GetAZs '' ]
+  #     CidrBlock: 10.16.128.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '08::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-reserved-C
   SubnetDBA:
     Type: AWS::EC2::Subnet
     DependsOn: IPv6CidrBlock
@@ -205,54 +205,54 @@ Resources:
       Tags:
         - Key: Name
           Value: sn-db-C
-  SubnetAPPA:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      CidrBlock: 10.16.32.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '02::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-app-A
-  SubnetAPPB:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      CidrBlock: 10.16.96.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '06::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-app-B
-  SubnetAPPC:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 2, !GetAZs '' ]
-      CidrBlock: 10.16.160.0/20
-      AssignIpv6AddressOnCreation: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '0A::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-app-C
+  # SubnetAPPA:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 0, !GetAZs '' ]
+  #     CidrBlock: 10.16.32.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '02::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-app-A
+  # SubnetAPPB:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 1, !GetAZs '' ]
+  #     CidrBlock: 10.16.96.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '06::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-app-B
+  # SubnetAPPC:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 2, !GetAZs '' ]
+  #     CidrBlock: 10.16.160.0/20
+  #     AssignIpv6AddressOnCreation: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '0A::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-app-C
   SubnetWEBA:
     Type: AWS::EC2::Subnet
     DependsOn: IPv6CidrBlock
@@ -269,53 +269,53 @@ Resources:
       Tags:
         - Key: Name
           Value: sn-web-A
-  SubnetWEBB:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      CidrBlock: 10.16.112.0/20
-      MapPublicIpOnLaunch: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '07::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-web-B
-  SubnetWEBC:
-    Type: AWS::EC2::Subnet
-    DependsOn: IPv6CidrBlock
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 2, !GetAZs '' ]
-      CidrBlock: 10.16.176.0/20
-      MapPublicIpOnLaunch: true
-      Ipv6CidrBlock: 
-        Fn::Sub:
-          - "${VpcPart}${SubnetPart}"
-          - SubnetPart: '0B::/64'
-            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
-      Tags:
-        - Key: Name
-          Value: sn-web-C
+  # SubnetWEBB:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 1, !GetAZs '' ]
+  #     CidrBlock: 10.16.112.0/20
+  #     MapPublicIpOnLaunch: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '07::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-web-B
+  # SubnetWEBC:
+  #   Type: AWS::EC2::Subnet
+  #   DependsOn: IPv6CidrBlock
+  #   Properties:
+  #     VpcId: !Ref VPC
+  #     AvailabilityZone: !Select [ 2, !GetAZs '' ]
+  #     CidrBlock: 10.16.176.0/20
+  #     MapPublicIpOnLaunch: true
+  #     Ipv6CidrBlock: 
+  #       Fn::Sub:
+  #         - "${VpcPart}${SubnetPart}"
+  #         - SubnetPart: '0B::/64'
+  #           VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+  #     Tags:
+  #       - Key: Name
+  #         Value: sn-web-C
   IPv6WorkaroundSubnetWEBA:
     Type: Custom::SubnetModify
     Properties:
       ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn
       SubnetId: !Ref SubnetWEBA
-  IPv6WorkaroundSubnetWEBB:
-    Type: Custom::SubnetModify
-    Properties:
-      ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn
-      SubnetId: !Ref SubnetWEBB
-  IPv6WorkaroundSubnetWEBC:
-    Type: Custom::SubnetModify
-    Properties:
-      ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn
-      SubnetId: !Ref SubnetWEBC
+  # IPv6WorkaroundSubnetWEBB:
+  #   Type: Custom::SubnetModify
+  #   Properties:
+  #     ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn
+  #     SubnetId: !Ref SubnetWEBB
+  # IPv6WorkaroundSubnetWEBC:
+  #   Type: Custom::SubnetModify
+  #   Properties:
+  #     ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn
+  #     SubnetId: !Ref SubnetWEBC
   IPv6WorkaroundRole:
     Type: AWS::IAM::Role
     Properties:
@@ -386,42 +386,97 @@ Resources:
           FromPort: '3306'
           ToPort: '3306'
           SourceSecurityGroupId: !Ref InstanceSecurityGroup
-  DBSubnetGroup:
-    Type: AWS::RDS::DBSubnetGroup
-    Properties: 
-      DBSubnetGroupDescription: A4L Aurora subnet group
-      SubnetIds: 
-        - !Ref SubnetDBA
-        - !Ref SubnetDBB
-        - !Ref SubnetDBC
-  DBCluster: 
-    Type: "AWS::RDS::DBCluster"
-    DeletionPolicy: Delete
-    Properties: 
-      DBSubnetGroupName: !Ref DBSubnetGroup
-      DatabaseName: !If [NoSnapshot,  !Ref DBName, !Ref 'AWS::NoValue' ]
-      Engine: 'aurora-mysql'
-      EngineMode: 'serverless'
-      EngineVersion: "5.7.mysql_aurora.2.07.1"
-      MasterUserPassword: !If [NoSnapshot, !Ref DBPassword, !Ref 'AWS::NoValue' ]
-      MasterUsername: !If [NoSnapshot, !Ref DBUser, !Ref 'AWS::NoValue' ]
-      ScalingConfiguration:
-        AutoPause: true
-        MaxCapacity: 2
-        MinCapacity: 1
-        SecondsUntilAutoPause: 300
-      SnapshotIdentifier: !If [ NoSnapshot, !Ref 'AWS::NoValue', !Ref DatabaseRestoreSnapshot]
-      Tags: 
-        - 
-          Key: Name
-          Value: "A4L-Aurora-Cluster"
-      VpcSecurityGroupIds:
-        - !Ref RDSSecurityGroup   
+  # DBSubnetGroup:
+  #   Type: AWS::RDS::DBSubnetGroup
+  #   Properties: 
+  #     DBSubnetGroupDescription: A4L Aurora subnet group
+  #     SubnetIds: 
+  #       - !Ref SubnetDBA
+  #       - !Ref SubnetDBB
+  #       - !Ref SubnetDBC
+  # DBCluster: 
+  #   Type: "AWS::RDS::DBCluster"
+  #   DeletionPolicy: Delete
+  #   Properties: 
+  #     DBSubnetGroupName: !Ref DBSubnetGroup
+  #     DatabaseName: !If [NoSnapshot,  !Ref DBName, !Ref 'AWS::NoValue' ]
+  #     Engine: 'aurora-mysql'
+  #     EngineMode: 'serverless'
+  #     EngineVersion: "5.7.mysql_aurora.2.07.1"
+  #     MasterUserPassword: !If [NoSnapshot, !Ref DBPassword, !Ref 'AWS::NoValue' ]
+  #     MasterUsername: !If [NoSnapshot, !Ref DBUser, !Ref 'AWS::NoValue' ]
+  #     ScalingConfiguration:
+  #       AutoPause: true
+  #       MaxCapacity: 2
+  #       MinCapacity: 1
+  #       SecondsUntilAutoPause: 300
+  #     SnapshotIdentifier: !If [ NoSnapshot, !Ref 'AWS::NoValue', !Ref DatabaseRestoreSnapshot]
+  #     Tags: 
+  #       - 
+  #         Key: Name
+  #         Value: "A4L-Aurora-Cluster"
+  #     VpcSecurityGroupIds:
+  #       - !Ref RDSSecurityGroup   
   WordpressEC2:
     Type: AWS::EC2::Instance
+    # CreationPolicy section used in conjunction w/ cfn-signal to notify CFN when bootstrap finishes
     CreationPolicy:
       ResourceSignal:
-        Timeout: PT15M
+        Timeout: PT5M
+    # cfn-init helper script uses the config. directives passed to the Metadata as under AWS::CloudFormation::Init key
+    Metadata:
+      'AWS::CloudFormation::Init':
+        config:
+          packages:
+            yum:
+              httpd: []
+              mariadb-server: []
+              wget: []
+              cowsay: []
+          files:
+            # cfn-hup.conf file stores the config needed for the cfn-hup daemon to run.
+            /etc/cfn/cfn-hup.conf:
+              content: !Sub |
+                [main]
+                stack=${AWS::StackName}
+                region=${AWS::Region}
+                interval=1
+                verbose=true
+              mode: '000400'
+              owner: 'root'
+              group: 'root'
+            # When anything in AWS::CloudFormation::Init metadata changes ->
+            # cfn-auto-reloader.conf hooks file is triggered ->
+            # action configd. for cfn-auto-reloader-hook runs, i.e. the cfn-init bootstrap rerun
+            /etc/cfn/hooks.d/cfn-auto-reloader.conf:
+              content: !Sub |
+                [cfn-auto-reloader-hook]
+                triggers=post.update
+                path=Resources.WordpressEC2.Metadata.AWS::CloudFormation::Init
+                action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackId} --resource WordpressEC2 --region ${AWS::Region}
+                runas=root
+              mode: '000400'
+              owner: 'root'
+              group: 'root'
+            /var/www/html/index.html:
+              content: !Sub |
+                <html><head><title>Amazing test page</title></head><body><h1><center>"WORDPRESS TEST"</center></h1></body></html>
+          # commands:
+            # simulatebootstrap:
+            #   command: "sleep 60"
+          services:
+            sysvinit:
+              cfn-hup:
+                enabled: "true"
+                ensureRunning: "true"
+                files:
+                  - /etc/cfn/cfn-hup.conf
+                  - /etc/cfn/hooks.d/cfn-auto-reloader.conf
+              httpd:
+                enabled: "true"
+                ensureRunning: "true"
+                files:
+                  - "/var/www/html/index.html"
     Properties:
       InstanceType: "t2.micro"
       ImageId: !Ref LatestAmiId
@@ -435,63 +490,65 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
-          # System Updates
-          yum -y update
-          yum -y upgrade
-          # STEP 2 - Install system software - including Web and DB
-          yum install -y mariadb-server httpd wget cowsay
-          amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-          # STEP 3 - Web and DB Servers Online - and set to startup
-          systemctl enable httpd
-          systemctl start httpd
-          # STEP 5 - Install Wordpress
-          wget http://wordpress.org/latest.tar.gz -P /var/www/html
-          cd /var/www/html
-          tar -zxvf latest.tar.gz
-          cp -rvf wordpress/* .
-          rm -R wordpress
-          rm latest.tar.gz
-          # STEP 6 - Configure Wordpress
-          cp ./wp-config-sample.php ./wp-config.php
-          sed -i "s/'database_name_here'/'${DBName}'/g" wp-config.php
-          sed -i "s/'username_here'/'${DBUser}'/g" wp-config.php
-          sed -i "s/'password_here'/'${DBPassword}'/g" wp-config.php
-          sed -i "s/'localhost'/'${DBCluster.Endpoint.Address}'/g" wp-config.php
-          # Step 6a - permissions   
-          usermod -a -G apache ec2-user   
-          chown -R ec2-user:apache /var/www
-          chmod 2775 /var/www
-          find /var/www -type d -exec chmod 2775 {} \;
-          find /var/www -type f -exec chmod 0664 {} \;
-          # STEP 8 COWSAY
-          echo "#!/bin/sh" > /etc/update-motd.d/40-cow
-          echo 'cowsay "Amazon Linux 2 AMI - Animals4Life"' >> /etc/update-motd.d/40-cow
-          chmod 755 /etc/update-motd.d/40-cow
-          rm /etc/update-motd.d/30-banner
-          update-motd
-          # STEP 9 CWAgent Install & Config
-          rpm -Uvh https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
-          mkdir -p /usr/share/collectd/
-          touch /usr/share/collectd/types.db
-          /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:${CWAgentConfig} -s
-          # STEP 11 SIGNAL FINISH OF INSTALL & CONFIG
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackId} --resource WordpressEC2 --region ${AWS::Region}
-          # STEP 12 WORDPRESS IP FIX (Adding this after the signal because if we DON'T have a populated DB, it errors)
-          cat >> /home/ec2-user/update_wp_ip.sh<< 'EOF'
-          #!/bin/bash
-          source <(php -r 'require("/var/www/html/wp-config.php"); echo("DB_NAME=".DB_NAME."; DB_USER=".DB_USER."; DB_PASSWORD=".DB_PASSWORD."; DB_HOST=".DB_HOST); ')
-          SQL_COMMAND="mysql -u $DB_USER -h $DB_HOST -p$DB_PASSWORD $DB_NAME -e"
-          OLD_URL=$(mysql -u $DB_USER -h $DB_HOST -p$DB_PASSWORD $DB_NAME -e 'select option_value from wp_options where option_id = 1;' | grep http)
-          HOST=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
-          $SQL_COMMAND "UPDATE wp_options SET option_value = replace(option_value, '$OLD_URL', 'http://$HOST') WHERE option_name = 'home' OR option_name = 'siteurl';"
-          $SQL_COMMAND "UPDATE wp_posts SET guid = replace(guid, '$OLD_URL','http://$HOST');"
-          $SQL_COMMAND "UPDATE wp_posts SET post_content = replace(post_content, '$OLD_URL', 'http://$HOST');"
-          $SQL_COMMAND "UPDATE wp_postmeta SET meta_value = replace(meta_value,'$OLD_URL','http://$HOST');"
-          EOF
+          /opt/aws/bin/cfn-init -v --stack ${AWS::StackId} --resource WordpressEC2 --region ${AWS::Region}
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackId} --resource WordpressEC2 --region ${AWS::Region}          
+      # UserData:
+      #   Fn::Base64: !Sub |
+      #     #!/bin/bash -xe
+      #     # STEP 2 - Install system software - including Web and DB
+      #     yum install -y mariadb-server httpd wget cowsay
+      #     amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+      #     # STEP 3 - Web and DB Servers Online - and set to startup
+      #     systemctl enable httpd
+      #     systemctl start httpd
+      #     # STEP 5 - Install Wordpress
+      #     wget http://wordpress.org/latest.tar.gz -P /var/www/html
+      #     cd /var/www/html
+      #     tar -zxvf latest.tar.gz
+      #     cp -rvf wordpress/* .
+      #     rm -R wordpress
+      #     rm latest.tar.gz
+      #     # STEP 6 - Configure Wordpress
+      #     cp ./wp-config-sample.php ./wp-config.php
+      #     sed -i "s/'database_name_here'/'${DBName}'/g" wp-config.php
+      #     sed -i "s/'username_here'/'${DBUser}'/g" wp-config.php
+      #     sed -i "s/'password_here'/'${DBPassword}'/g" wp-config.php
+      #     sed -i "s/'localhost'/'${DBCluster.Endpoint.Address}'/g" wp-config.php
+      #     # Step 6a - permissions   
+      #     usermod -a -G apache ec2-user   
+      #     chown -R ec2-user:apache /var/www
+      #     chmod 2775 /var/www
+      #     find /var/www -type d -exec chmod 2775 {} \;
+      #     find /var/www -type f -exec chmod 0664 {} \;
+      #     # STEP 8 COWSAY
+      #     echo "#!/bin/sh" > /etc/update-motd.d/40-cow
+      #     echo 'cowsay "Amazon Linux 2 AMI - Animals4Life"' >> /etc/update-motd.d/40-cow
+      #     chmod 755 /etc/update-motd.d/40-cow
+      #     rm /etc/update-motd.d/30-banner
+      #     update-motd
+      #     # STEP 9 CWAgent Install & Config
+      #     rpm -Uvh https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+      #     mkdir -p /usr/share/collectd/
+      #     touch /usr/share/collectd/types.db
+      #     /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:${CWAgentConfig} -s
+      #     # STEP 11 SIGNAL FINISH OF INSTALL & CONFIG
+      #     /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackId} --resource WordpressEC2 --region ${AWS::Region}
+      #     # STEP 12 WORDPRESS IP FIX (Adding this after the signal because if we DON'T have a populated DB, it errors)
+      #     cat >> /home/ec2-user/update_wp_ip.sh<< 'EOF'
+      #     #!/bin/bash
+      #     source <(php -r 'require("/var/www/html/wp-config.php"); echo("DB_NAME=".DB_NAME."; DB_USER=".DB_USER."; DB_PASSWORD=".DB_PASSWORD."; DB_HOST=".DB_HOST); ')
+      #     SQL_COMMAND="mysql -u $DB_USER -h $DB_HOST -p$DB_PASSWORD $DB_NAME -e"
+      #     OLD_URL=$(mysql -u $DB_USER -h $DB_HOST -p$DB_PASSWORD $DB_NAME -e 'select option_value from wp_options where option_id = 1;' | grep http)
+      #     HOST=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+      #     $SQL_COMMAND "UPDATE wp_options SET option_value = replace(option_value, '$OLD_URL', 'http://$HOST') WHERE option_name = 'home' OR option_name = 'siteurl';"
+      #     $SQL_COMMAND "UPDATE wp_posts SET guid = replace(guid, '$OLD_URL','http://$HOST');"
+      #     $SQL_COMMAND "UPDATE wp_posts SET post_content = replace(post_content, '$OLD_URL', 'http://$HOST');"
+      #     $SQL_COMMAND "UPDATE wp_postmeta SET meta_value = replace(meta_value,'$OLD_URL','http://$HOST');"
+      #     EOF
 
-          chmod 755 /home/ec2-user/update_wp_ip.sh
-          echo "/home/ec2-user/update_wp_ip.sh" >> /etc/rc.local
-          /home/ec2-user/update_wp_ip.sh
+      #     chmod 755 /home/ec2-user/update_wp_ip.sh
+      #     echo "/home/ec2-user/update_wp_ip.sh" >> /etc/rc.local
+      #     /home/ec2-user/update_wp_ip.sh
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -650,12 +707,14 @@ Resources:
             }
           }
         }
-Outputs:
-  dbhost:
-    Description: "RDS Endpoint Address"
-    Value: !GetAtt DBCluster.Endpoint.Address
+# Outputs:
+#   dbhost:
+#     Description: "RDS Endpoint Address"
+#     Value: !GetAtt DBCluster.Endpoint.Address
 
 
-# TO IMPROVE: Implement the userdata script via cfn-init & cfn-hup so that
+# TO IMPROVE:
+# Use the Amazon Linux 2023 or some free wordpress public AMI
+# Implement the userdata script via cfn-init & cfn-hup so that
 # when the cfn stack is updated with a RDS Endpoint Address, the new EC2 public IP
-# is automatically updated in the wordpress site url if restiored from an earlier snapshop
+# is automatically updated in the wordpress site url if restored from an earlier snapshot

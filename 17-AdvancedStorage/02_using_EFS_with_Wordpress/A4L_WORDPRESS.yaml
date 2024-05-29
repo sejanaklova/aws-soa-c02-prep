@@ -125,3 +125,9 @@ Resources:
             ElasticFileSystem: !ImportValue A4L-EFS
             CWAgentConfig: !ImportValue A4L-CWAGENT-CONFIG
 
+
+# TO IMPROVE:
+# Use the Amazon Linux 2023 or some free wordpress public AMI
+# Implement the userdata script via cfn-init & cfn-hup so that
+# when the cfn stack is updated with a RDS Endpoint Address, the new EC2 public IP
+# is automatically updated in the wordpress site url if restored from an earlier snapshot
